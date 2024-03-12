@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const hpp = require("hpp");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const dotenv = require("dotenv");
+require("dotenv").config({ path: './.env' });
 const router = require("./src/routes/api.js")
 
 // Opening cors
@@ -22,7 +22,7 @@ app.use(limiter)
 
 
 // mongoose connection
-let URL = "mongodb+srv://hero:KM2ILeYKR5a9QLBh@cluster0.dmbzoat.mongodb.net/to-do-list";
+let URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dmbzoat.mongodb.net/to-do-list`;
 let OPTION = { user: "", pass: "", autoIndex: true };
 mongoose.connect(URL, OPTION)
     .then((res) => {
